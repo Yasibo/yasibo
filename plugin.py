@@ -56,6 +56,12 @@ class YasiboPlugin(IPlugin):
         print("Plugin Deactivated")
         
     def _get_handlers(self, events):
+        """
+        This function is a convienience function which gets the method handler
+        for an event in the format: _on_event
+        
+        Plugins need to also declare the _on_event function.
+        """
         handlers = []
         for event in events:
             handlers.append((event, getattr(self, "_on_" + event)))
@@ -63,6 +69,12 @@ class YasiboPlugin(IPlugin):
         return handlers
         
     def get_events_to_handle(self):
+        """
+        Plugins should implement this function to register for IRC events
+        
+        For supported IRC events see irc/events.py from:
+            http://bitbucket.org/jaraco/irc
+        """
         pass
     
 
