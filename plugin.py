@@ -6,7 +6,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import os
-from ConfigParser import SafeConfigParser
+from configparser import SafeConfigParser
 
 from xdg.BaseDirectory import save_config_path, xdg_data_dirs
 
@@ -26,6 +26,8 @@ class PluginManager(object):
         config_file = os.path.join(config_path, "plugins.conf")
         places = []
         [places.append(os.path.join(path, "yasibo", "plugins")) for path in xdg_data_dirs]
+        # dev location
+        places.append("%s/plugins" % os.path.dirname(os.path.abspath(__file__)))
         
         PluginManagerSingleton.setBehaviour([ConfigurablePluginManager,
                                              VersionedPluginManager])
@@ -35,6 +37,8 @@ class PluginManager(object):
         parser = SafeConfigParser()
         parser.read(config_file)
         self.manager.setConfigParser(parser, self.save)
+        
+        self.manager.collectPlugins()
         
     def save(self):
         """
@@ -50,6 +54,9 @@ class YasiboPlugin(IPlugin):
         
     def deactivate(self):
         print("Plugin Deactivated")
+        
+    def get_events_to_handle(self):
+        pass
     
 
 if __name__ == "__main__":

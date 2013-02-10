@@ -7,11 +7,29 @@
 
 import irc.client
 
+from plugin import PluginManager
+
 class Yasibo(irc.client.SimpleIRCClient):
     def __init__(self, nickname, server, port=6667):
         irc.client.SimpleIRCClient.__init__(self)
-
+        
+        # Initialize variables
+        self.plugman = PluginManager()
+        
+        # Initialize plugins
+        for plugin in self.plugman.manager.getAllPlugins():
+            print(plugin.name)
+            handlers = plugin.plugin_object.get_events_to_handle()
+            for handler in handlers:
+                event, function = handler
+                self._register_event(event, function)
+                print("%s registered: %s" % (plugin.name, event))
+        
+        # Initialize bot
         self.connect(server, port, nickname)
+        
+    def _register_event(self, event, handler, priority=0):
+        self.ircobj.add_global_handler(event, handler, priority)
 
     def join(self, channel):
         self.connection.join(channel)
