@@ -9,13 +9,8 @@ import plugin
 
 class Hello(plugin.YasiboPlugin):
     def get_events_to_handle(self):
-        events = ["pubmsg"]
-        handlers = []
-        
-        for event in events:
-            handlers.append((event, getattr(self, "_on_pubmsg")))
-            
-        return handlers
+        events = ["pubmsg"]    
+        return self._get_handlers(events)
         
     def _on_pubmsg(self, connection, event):
         msg = event.arguments[0]

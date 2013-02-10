@@ -55,6 +55,13 @@ class YasiboPlugin(IPlugin):
     def deactivate(self):
         print("Plugin Deactivated")
         
+    def _get_handlers(self, events):
+        handlers = []
+        for event in events:
+            handlers.append((event, getattr(self, "_on_" + event)))
+            
+        return handlers
+        
     def get_events_to_handle(self):
         pass
     
