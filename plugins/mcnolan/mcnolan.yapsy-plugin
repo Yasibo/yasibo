@@ -1,0 +1,9 @@
+[Core]
+Name = McNolan Bot
+Module = mcnolan
+
+[Documentation]
+Author = Joseph Wakefield
+Version = 0.1
+Website = http://github.com/Yasibo/yasibo
+Description = Description
