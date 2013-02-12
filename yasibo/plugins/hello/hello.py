@@ -5,9 +5,9 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import plugin
+from yasibo.plugin import YasiboPlugin
 
-class Hello(plugin.YasiboPlugin):
+class Hello(YasiboPlugin):
     def get_events_to_handle(self):
         events = ["pubmsg"]    
         return self._get_handlers(events)

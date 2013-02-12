@@ -15,7 +15,7 @@ from yapsy.PluginManager import PluginManagerSingleton
 from yapsy.ConfigurablePluginManager import ConfigurablePluginManager
 from yapsy.VersionedPluginManager import VersionedPluginManager
 
-import glue
+from yasibo import glue
 
 class PluginManager(object):
     def __init__(self):
