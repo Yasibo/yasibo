@@ -15,6 +15,8 @@ from yapsy.PluginManager import PluginManagerSingleton
 from yapsy.ConfigurablePluginManager import ConfigurablePluginManager
 from yapsy.VersionedPluginManager import VersionedPluginManager
 
+import glue
+
 class PluginManager(object):
     def __init__(self):
         """
@@ -22,8 +24,8 @@ class PluginManager(object):
             - plugin configuration directory
             - plugin search locations
         """
-        config_path = save_config_path("yasibo")
-        config_file = os.path.join(config_path, "plugins.conf")
+        self.config_path = save_config_path("yasibo")
+        self.config_file = os.path.join(self.config_path, "plugins.conf")
         places = []
         [places.append(os.path.join(path, "yasibo", "plugins")) for path in xdg_data_dirs]
         # dev location
@@ -34,11 +36,12 @@ class PluginManager(object):
         self.manager = PluginManagerSingleton.get()
         self.manager.setPluginPlaces(places)
         
-        parser = SafeConfigParser()
-        parser.read(config_file)
-        self.manager.setConfigParser(parser, self.save)
+        self.config = SafeConfigParser()
+        self.config.read(self.config_file)
+        self.manager.setConfigParser(self.config, self.save)
         
         self.manager.collectPlugins()
+        print(self.config_file)
         
     def save(self):
         """
@@ -50,9 +53,25 @@ class PluginManager(object):
         
 class YasiboPlugin(IPlugin):
     def activate(self):
-        print("Plugin Activated: %s" % self.name)
+        super(YasiboPlugin, self).activate()
+        
+        handlers = self.get_events_to_handle()
+        for handler in handlers:
+            event, function = handler
+            glue.bot._register_event(event, function)
+            print("registered: %s" % (event))
+        
+        print("Plugin Activated")
         
     def deactivate(self):
+        super(YasiboPlugin, self).deactivate()
+        
+        handlers = self.get_events_to_handle()
+        for handler in handlers:
+            event, function = handler
+            glue.bot._unregister_event(event, function)
+            print("registered: %s" % (event))
+        
         print("Plugin Deactivated")
         
     def _get_handlers(self, events):
@@ -75,7 +94,7 @@ class YasiboPlugin(IPlugin):
         For supported IRC events see irc/events.py from:
             http://bitbucket.org/jaraco/irc
         """
-        pass
+        return None
     
 
 if __name__ == "__main__":
