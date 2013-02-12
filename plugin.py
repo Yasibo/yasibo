@@ -70,7 +70,7 @@ class YasiboPlugin(IPlugin):
         for handler in handlers:
             event, function = handler
             glue.bot._unregister_event(event, function)
-            print("registered: %s" % (event))
+            print("unregistered: %s" % (event))
         
         print("Plugin Deactivated")
         
