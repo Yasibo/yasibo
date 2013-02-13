@@ -10,6 +10,7 @@ import logging
 
 # 3rd party
 import irc.client
+from yasibo.db import DBManager
 
 # yasibo
 from yasibo.plugin import PluginManager
@@ -25,6 +26,8 @@ class Yasibo(irc.client.SimpleIRCClient):
         # Initialize variables
         self.plugman = PluginManager()
         glue.plugman = self.plugman
+        self.dbman = DBManager()
+        glue.dbman = self.dbman
         
         # Initialize bot
         self.connect(server, port, nickname)
