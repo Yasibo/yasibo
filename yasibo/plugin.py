@@ -5,9 +5,12 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+# python lib
+import logging
 import os
 from configparser import SafeConfigParser
 
+# 3rd party
 from xdg.BaseDirectory import save_config_path, xdg_data_dirs
 
 from yapsy.IPlugin import IPlugin
@@ -15,7 +18,10 @@ from yapsy.PluginManager import PluginManagerSingleton
 from yapsy.ConfigurablePluginManager import ConfigurablePluginManager
 from yapsy.VersionedPluginManager import VersionedPluginManager
 
+# yasibo
 from yasibo import glue
+
+log = logging.getLogger(__name__)
 
 class PluginManager(object):
     def __init__(self):
@@ -41,7 +47,7 @@ class PluginManager(object):
         self.manager.setConfigParser(self.config, self.save)
         
         self.manager.collectPlugins()
-        print(self.config_file)
+        log.debug("Config file: %s" % self.config_file)
         
     def save(self):
         """
@@ -60,9 +66,9 @@ class YasiboPlugin(IPlugin):
             for handler in handlers:
                 event, function = handler
                 glue.bot._register_event(event, function)
-                print("registered: %s" % (event))
+                log.debug("Registered event: %s" % (event))
         
-        print("Plugin Activated")
+        log.info("Plugin Activated")
         
     def deactivate(self):
         super(YasiboPlugin, self).deactivate()
@@ -72,9 +78,9 @@ class YasiboPlugin(IPlugin):
             for handler in handlers:
                 event, function = handler
                 glue.bot._unregister_event(event, function)
-                print("unregistered: %s" % (event))
+                log.debug("Unregistered event: %s" % (event))
         
-        print("Plugin Deactivated")
+        log.info("Plugin Deactivated")
         
     def _get_handlers(self, events):
         """

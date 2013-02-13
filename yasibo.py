@@ -5,6 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import logging
 import sys
 
 from yasibo.core import Yasibo
@@ -17,6 +18,11 @@ nickname = str(sys.argv[1])
 channel = str(sys.argv[2])
 server = str(sys.argv[3])
 port = int(sys.argv[4])
+
+logging.getLogger('').setLevel(logging.NOTSET)
+logging.getLogger('irc.client').setLevel(logging.INFO)
+logging.getLogger('yapsy').setLevel(logging.INFO)
+logging.info('Initialize logger...')
 
 bot = Yasibo(nickname, server, port)
 bot.join(channel)

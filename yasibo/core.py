@@ -5,11 +5,17 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+# python lib
+import logging
+
+# 3rd party
 import irc.client
 
+# yasibo
 from yasibo.plugin import PluginManager
-
 from yasibo import glue
+
+log = logging.getLogger(__name__)
 
 class Yasibo(irc.client.SimpleIRCClient):
     def __init__(self, nickname, server, port=6667):
@@ -22,6 +28,7 @@ class Yasibo(irc.client.SimpleIRCClient):
         
         # Initialize bot
         self.connect(server, port, nickname)
+        log.info('Yasibo initialized')
         
     def _register_event(self, event, handler, priority=0):
         self.ircobj.add_global_handler(event, handler, priority)
