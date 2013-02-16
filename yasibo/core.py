@@ -46,8 +46,8 @@ class Yasibo(irc.client.SimpleIRCClient):
             if getattr(value, '_botcmd', False):
                 name = getattr(value, '_botcmd_name')
                 self.commands[name] = value
+                log.debug("Added command \"%s\" to command list" % name)
 
-        
     def del_botcmd(self, cmd):
         for name, value in inspect.getmembers(cmd, inspect.ismethod):
             if getattr(value, '_botcmd', False):
