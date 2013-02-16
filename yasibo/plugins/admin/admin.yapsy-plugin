@@ -1,0 +1,9 @@
+[Core]
+Name = Admin
+Module = admin
+
+[Documentation]
+Author = Thanh Ha
+Version = 0.1
+Website = http://github.com/Yasibo/yasibo
+Description = Administration Module allowing users to configure the bot
