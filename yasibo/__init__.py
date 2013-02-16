@@ -23,4 +23,7 @@ def botcmd(*args, **kwargs):
             setattr(func, '_botcmd_admin', admin)
         return func
 
-    return create_botcmd(args[0], **kwargs)
+    if len(args):
+        return create_botcmd(args[0], **kwargs)
+    else:
+        return lambda func: create_botcmd(func, **kwargs)

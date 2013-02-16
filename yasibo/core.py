@@ -61,9 +61,25 @@ class Yasibo(irc.client.SimpleIRCClient):
         if msg.startswith('!'):
             split = msg.split(' ', 1)
             cmd = split[0].lstrip('!')
-            args = split[1]
+            args = None
             
-            self.commands[cmd](args)
+            # Check if any possible arguments were passed
+            if len(split) > 1:
+                args = split[1]
+            
+            if cmd in self.commands:
+                # If the command is an admin command then only respond to privmsg
+                if getattr(self.commands[cmd], '_botcmd_admin'):
+                    if event.type == "privmsg":
+                        self.commands[cmd](args)
+                        log.debug("Admin command \"%s\" processed." % cmd)
+                    else:
+                        log.debug("Admin command \"%s\" detected in pubmsg, ignoring..." % cmd)
+                else:
+                    self.commands[cmd](args)
+                    log.debug("Command \"%s\" processed." % cmd)
+            else:
+                log.debug("No registered commands matching \"%s\" found." % cmd)
     
     def join(self, channel):
         self.connection.join(channel)

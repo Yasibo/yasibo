@@ -14,7 +14,7 @@ from yasibo import glue
 log = logging.getLogger(__name__)
 
 class Admin(YasiboPlugin):
-    @botcmd
+    @botcmd(admin=True)
     def join(self, args):
         if args.startswith('#'):
             log.debug("Joining %s" % args)
