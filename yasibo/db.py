@@ -6,15 +6,21 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import logging
+import os
 import sqlite3
+from xdg.BaseDirectory import save_config_path
 
 log = logging.getLogger(__name__)
 
 class DBManager(object):
     def __init__(self):
-        log.info("DB initialized: SQLite3 v" + sqlite3.sqlite_version)
-        self.conn = sqlite3.connect('yasibo.sqlite3')
+        self.db_path = save_config_path("yasibo")
+        self.db_file = os.path.join(self.db_path, "yasibo.sqlite3")
+        log.debug("DB file location: %s" % self.db_file)
+        
+        self.conn = sqlite3.connect(self.db_file)
         self.cur = self.conn.cursor()
+        log.info("DB initialized: SQLite3 v" + sqlite3.sqlite_version)
 
     def selftest(self):
         try:
