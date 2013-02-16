@@ -33,6 +33,7 @@ class Yasibo(irc.client.SimpleIRCClient):
         
         # Initialize bot
         self.connect(server, port, nickname)
+        self.plugman.on_connect()
         log.info('Yasibo initialized')
         
     def register_event(self, event, handler, priority=0):

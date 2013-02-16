@@ -57,6 +57,11 @@ class PluginManager(object):
         self.config.write(f)
         f.close()
         
+    def on_connect(self):
+        for plugin in self.manager.getAllPlugins():
+            if plugin.is_activated:
+                plugin.plugin_object.on_connect()
+        
 class YasiboPlugin(IPlugin):
     def activate(self):
         super(YasiboPlugin, self).activate()
@@ -107,6 +112,13 @@ class YasiboPlugin(IPlugin):
             http://bitbucket.org/jaraco/irc
         """
         return None
+        
+    def on_connect(self):
+        """
+        Plugins should implement this function if they need to process something
+        when the bot connects to an IRC server.
+        """
+        pass
     
 
 if __name__ == "__main__":
