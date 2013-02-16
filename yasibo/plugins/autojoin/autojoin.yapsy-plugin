@@ -1,0 +1,9 @@
+[Core]
+Name = AutoJoin
+Module = autojoin
+
+[Documentation]
+Author = Thanh Ha
+Version = 0.1
+Website = http://github.com/Yasibo/yasibo
+Description = Auto Joins channels
