@@ -15,6 +15,22 @@ log = logging.getLogger(__name__)
 
 class Admin(YasiboPlugin):
     @botcmd(admin=True)
+    def enable(self, args):
+        plugin = glue.plugman.manager.activatePluginByName(args)
+        if plugin:
+            log.info("%s activated." % plugin.name)
+        else:
+            log.info("%s plugin does not exist." % plugin.name)
+    
+    @botcmd(admin=True)
+    def disable(self, args):
+        plugin = glue.plugman.manager.deactivatePluginByName(args)
+        if plugin:
+            log.info("%s deactivated." % plugin.name)
+        else:
+            log.info("%s plugin does not exist." % plugin.name)
+        
+    @botcmd(admin=True)
     def join(self, args):
         if args.startswith('#'):
             log.debug("Joining %s" % args)

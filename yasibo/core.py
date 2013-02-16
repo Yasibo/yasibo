@@ -39,7 +39,7 @@ class Yasibo(irc.client.SimpleIRCClient):
         self.ircobj.add_global_handler(event, handler, priority)
         
     def unregister_event(self, event, handler, priority=0):
-        self.ircobj.remove_global_handler(event, handler, priority)
+        self.ircobj.remove_global_handler(event, handler)
         
     def add_botcmd(self, cmd):
         for name, value in inspect.getmembers(cmd, inspect.ismethod):
