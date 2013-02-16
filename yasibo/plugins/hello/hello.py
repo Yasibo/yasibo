@@ -11,6 +11,9 @@ import random
 from yasibo.plugin import YasiboPlugin
 
 class Hello(YasiboPlugin):
+    # List of keywords to respond to
+    rspto = {"hi", "hello"}
+    
     def __init__(self):
         super(Hello, self).__init__()
         self._dirname = os.path.dirname(__file__)
@@ -22,7 +25,7 @@ class Hello(YasiboPlugin):
         
     def _on_pubmsg(self, connection, event):
         msg = event.arguments[0]
-        
-        if "hello" or "hi" in msg.lower():
+        s = self.rspto & set(msg.lower().split())
+        if len(s):
             random_response = random.choice(open(self._rspfile).readlines()).rstrip()
             connection.privmsg(event.target, random_response)
