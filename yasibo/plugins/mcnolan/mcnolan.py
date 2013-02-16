@@ -7,7 +7,7 @@
 
 from yasibo.plugin import YasiboPlugin
 
-class Hello(YasiboPlugin):
+class McNolan(YasiboPlugin):
     def get_events_to_handle(self):
         events = ["join", "pubmsg"]    
         return self._get_handlers(events)
