@@ -61,11 +61,13 @@ class YasiboPlugin(IPlugin):
     def activate(self):
         super(YasiboPlugin, self).activate()
         
+        glue.bot.add_botcmd(self)
+        
         handlers = self.get_events_to_handle()
         if handlers is not None:
             for handler in handlers:
                 event, function = handler
-                glue.bot._register_event(event, function)
+                glue.bot.register_event(event, function)
                 log.debug("Registered event: %s" % (event))
         
         log.info("Plugin Activated")
@@ -73,11 +75,13 @@ class YasiboPlugin(IPlugin):
     def deactivate(self):
         super(YasiboPlugin, self).deactivate()
         
+        glue.bot.del_botcmd(self)
+        
         handlers = self.get_events_to_handle()
         if handlers is not None:
             for handler in handlers:
                 event, function = handler
-                glue.bot._unregister_event(event, function)
+                glue.bot.unregister_event(event, function)
                 log.debug("Unregistered event: %s" % (event))
         
         log.info("Plugin Deactivated")
