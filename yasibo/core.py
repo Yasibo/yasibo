@@ -29,7 +29,6 @@ class Yasibo(irc.client.SimpleIRCClient):
         self.plugman = PluginManager()
         glue.plugman = self.plugman
         self._dbman = DBManager()
-        glue._dbman = self._dbman
         
         # Initialize bot
         self.connect(server, port, nickname)
