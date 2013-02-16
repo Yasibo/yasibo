@@ -71,12 +71,12 @@ class Yasibo(irc.client.SimpleIRCClient):
                 # If the command is an admin command then only respond to privmsg
                 if getattr(self.commands[cmd], '_botcmd_admin'):
                     if event.type == "privmsg":
-                        self.commands[cmd](args)
+                        self.commands[cmd](event, args)
                         log.debug("Admin command \"%s\" processed." % cmd)
                     else:
                         log.debug("Admin command \"%s\" detected in pubmsg, ignoring..." % cmd)
                 else:
-                    self.commands[cmd](args)
+                    self.commands[cmd](event, args)
                     log.debug("Command \"%s\" processed." % cmd)
             else:
                 log.debug("No registered commands matching \"%s\" found." % cmd)

@@ -23,7 +23,7 @@ class AutoJoin(YasiboPlugin):
             for channel in channels.split(','):
                 self.channels.append(channel)
         except (configparser.NoSectionError, configparser.NoOptionError):
-            log.debug("Config file non-existant or plugin section missing.")
+            log.warn("Config file non-existant or plugin section missing.")
             
         for channel in self.channels:
             glue.bot.join(channel)
@@ -40,7 +40,7 @@ class AutoJoin(YasiboPlugin):
         log.info("Removed channel %s from autojoin." % channel)
         
     @botcmd(admin=True)
-    def autojoin(self, args):
+    def autojoin(self, msg, args):
         """
         Usage: autojoin <channel>
         
@@ -49,7 +49,7 @@ class AutoJoin(YasiboPlugin):
         self.add_channel(args)
         
     @botcmd(admin=True)
-    def unautojoin(self, args):
+    def unautojoin(self, msg, args):
         """
         Usage: unautojoin <channe>
         
