@@ -18,17 +18,17 @@ class Admin(YasiboPlugin):
     def enable(self, args):
         plugin = glue.plugman.manager.activatePluginByName(args)
         if plugin:
-            log.info("%s activated." % plugin.name)
+            log.info("%s activated." % args)
         else:
-            log.info("%s plugin does not exist." % plugin.name)
+            log.info("%s plugin does not exist." % args)
     
     @botcmd(admin=True)
     def disable(self, args):
         plugin = glue.plugman.manager.deactivatePluginByName(args)
         if plugin:
-            log.info("%s deactivated." % plugin.name)
+            log.info("%s deactivated." % args)
         else:
-            log.info("%s plugin does not exist." % plugin.name)
+            log.info("%s plugin does not exist." % args)
         
     @botcmd(admin=True)
     def join(self, args):
