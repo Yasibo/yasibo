@@ -6,7 +6,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-import log
+import logging
 
 log = logging.getLogger(__name__)
 
