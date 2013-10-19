@@ -40,6 +40,8 @@ class PluginManager(object):
         PluginManagerSingleton.setBehaviour([ConfigurablePluginManager,
                                              VersionedPluginManager])
         self.manager = PluginManagerSingleton.get()
+        locator = self.plugmanc.getPluginLocator()
+        locator.setPluginInfoExtension("yasibo-plugin")
         self.manager.setPluginPlaces(places)
 
         self.config = SafeConfigParser()
