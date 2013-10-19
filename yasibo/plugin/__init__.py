@@ -13,7 +13,6 @@ from configparser import SafeConfigParser
 # 3rd party
 from xdg.BaseDirectory import save_config_path, xdg_data_dirs
 
-from yapsy.IPlugin import IPlugin
 from yapsy.PluginManager import PluginManagerSingleton
 from yapsy.ConfigurablePluginManager import ConfigurablePluginManager
 from yapsy.VersionedPluginManager import VersionedPluginManager

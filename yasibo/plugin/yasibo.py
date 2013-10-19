@@ -8,6 +8,8 @@
 
 import logging
 
+from yapsy.IPlugin import IPlugin
+
 log = logging.getLogger(__name__)
 
 
