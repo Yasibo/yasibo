@@ -5,18 +5,21 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import inspect
+import logging
 import time
 
-from yasibo.glue import bot
-from yasibo.glue import plugman
-from yasibo.command import Commands
 from yasibo.plugin import PluginManager
+from yasibo import glue
+
+log = logging.getLogger(__name__)
+
 
 class Engine:
     def __init__(self):
-        bot = self
-        plugman = PluginManager()
-        commands = Commands()
+        glue.bot = self
+        self.commands = {}
+        glue.plugman = PluginManager()
 
     def main_loop(self):
         while(1):
@@ -28,3 +31,18 @@ class Engine:
 
     def process_events(self):
         pass
+
+
+    def add_botcmd(self, cmd):
+        for name, value in inspect.getmembers(cmd, inspect.ismethod):
+            if getattr(value, '_botcmd', False):
+                name = getattr(value, '_botcmd_name')
+                self.commands[name] = value
+                log.debug("Added command \"%s\" to command list" % name)
+
+    def del_botcmd(self, cmd):
+        for name, value in inspect.getmembers(cmd, inspect.ismethod):
+            if getattr(value, '_botcmd', False):
+                name = getattr(value, '_botcmd_name')
+                if name in self.commands:
+                    del(self.commands[name])

@@ -7,7 +7,7 @@
 
 import logging
 
-from yasibo.plugin.yapsy import YasiboPlugin
+from yasibo.plugin.yasibo import YasiboPlugin
 from yasibo import botcmd
 from yasibo import glue
 
