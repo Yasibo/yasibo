@@ -6,10 +6,15 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
+import logging
+
 from yasibo.plugin.yasibo import YasiboPlugin
+
+log = logging.getLogger(__name__)
+
 
 class HelloWorld(YasiboPlugin):
 
     def __init__(self):
         super(HelloWorld, self).__init__()
-        print('Hello World!')
+        log.info('Hello World!')
