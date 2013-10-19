@@ -9,12 +9,14 @@ import time
 
 from yasibo.glue import bot
 from yasibo.glue import plugman
+from yasibo.command import Commands
 from yasibo.plugin import PluginManager
 
 class Engine:
     def __init__(self):
         bot = self
         plugman = PluginManager()
+        commands = Commands()
 
     def main_loop(self):
         while(1):
