@@ -23,6 +23,7 @@ from yasibo import glue
 
 log = logging.getLogger(__name__)
 
+
 class PluginManager(object):
     def __init__(self):
         """
@@ -40,7 +41,7 @@ class PluginManager(object):
         PluginManagerSingleton.setBehaviour([ConfigurablePluginManager,
                                              VersionedPluginManager])
         self.manager = PluginManagerSingleton.get()
-        locator = self.plugmanc.getPluginLocator()
+        locator = self.manager.getPluginLocator()
         locator.setPluginInfoExtension("yasibo-plugin")
         self.manager.setPluginPlaces(places)
 
