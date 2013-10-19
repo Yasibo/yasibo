@@ -7,9 +7,14 @@
 
 import time
 
+from yasibo.glue import bot
+from yasibo.glue import plugman
+from yasibo.plugin import PluginManager
+
 class Engine:
     def __init__(self):
-        pass
+        bot = self
+        plugman = PluginManager()
 
     def main_loop(self):
         while(1):
